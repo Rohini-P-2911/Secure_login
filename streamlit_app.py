@@ -1,4 +1,3 @@
-```python
 import streamlit as st
 import streamlit.components.v1 as components
 from pathlib import Path
@@ -23,12 +22,12 @@ if html_path.exists() and css_path.exists() and js_path.exists():
 
     html_content = html_content.replace(
         '<link rel="stylesheet" href="style.css">',
-        f"<style>{css_content}</style>"
+        '<style>\n' + css_content + '\n</style>'
     )
 
     html_content = html_content.replace(
         '<script src="script.js" defer></script>',
-        f"<script>{js_content}</script>"
+        '<script>\n' + js_content + '\n</script>'
     )
 
     components.html(
@@ -39,7 +38,6 @@ if html_path.exists() and css_path.exists() and js_path.exists():
 
 else:
     st.error(
-        "Please check that index.html, style.css, "
-        "and script.js are in the same repository folder."
+        "Please keep index.html, style.css, and script.js "
+        "in the same folder as streamlit_app.py."
     )
-```
