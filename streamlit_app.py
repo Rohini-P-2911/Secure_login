@@ -15,7 +15,6 @@ css_path = base_path / "style.css"
 js_path = base_path / "script.js"
 
 if html_path.exists() and css_path.exists() and js_path.exists():
-
     html_content = html_path.read_text(encoding="utf-8")
     css_content = css_path.read_text(encoding="utf-8")
     js_content = js_path.read_text(encoding="utf-8")
@@ -27,7 +26,12 @@ if html_path.exists() and css_path.exists() and js_path.exists():
 
     html_content = html_content.replace(
         '<script src="script.js" defer></script>',
-        '<script>\n' + js_content + '\n</script>'
+        ''
+    )
+
+    html_content = html_content.replace(
+        '</body>',
+        '<script>\n' + js_content + '\n</script>\n</body>'
     )
 
     components.html(
@@ -37,7 +41,4 @@ if html_path.exists() and css_path.exists() and js_path.exists():
     )
 
 else:
-    st.error(
-        "Please keep index.html, style.css, and script.js "
-        "in the same folder as streamlit_app.py."
-    )
+    st.error("Check that all three files are in the same folder.")
