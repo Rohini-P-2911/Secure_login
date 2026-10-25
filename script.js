@@ -1,16 +1,12 @@
-
 /* =================================
    LOGIN SETTINGS
 ================================= */
 
-// Change username and password here
 const LOGIN_USERNAME = "admin";
 const LOGIN_PASSWORD = "Secure@123";
 
-// Paste your website URL here
 const SUCCESS_REDIRECT_URL = "https://realestatedm-046-048.streamlit.app/";
 
-// Brute-force simulation settings
 const MAX_ATTEMPTS = 5;
 const LOCK_SECONDS = 30;
 
@@ -21,7 +17,10 @@ let lockedUntil = 0;
 let lockTimer = null;
 
 
-// Display credentials
+// =================================
+// DISPLAY CREDENTIALS
+// =================================
+
 $("shownUsername").textContent = LOGIN_USERNAME;
 $("shownPassword").textContent = LOGIN_PASSWORD;
 $("username").value = LOGIN_USERNAME;
@@ -33,7 +32,6 @@ $("username").value = LOGIN_USERNAME;
 
 document.querySelectorAll(".tab").forEach(button => {
     button.addEventListener("click", () => {
-
         document.querySelectorAll(".tab").forEach(tab => {
             tab.classList.toggle("active", tab === button);
         });
@@ -63,14 +61,11 @@ function showNotice(element, message, type) {
 // =================================
 
 $("togglePassword").addEventListener("click", () => {
-
     const field = $("password");
     const isHidden = field.type === "password";
 
     field.type = isHidden ? "text" : "password";
-
-    $("togglePassword").textContent =
-        isHidden ? "HIDE" : "SHOW";
+    $("togglePassword").textContent = isHidden ? "HIDE" : "SHOW";
 });
 
 
@@ -79,7 +74,6 @@ $("togglePassword").addEventListener("click", () => {
 // =================================
 
 $("password").addEventListener("input", () => {
-
     const password = $("password").value;
 
     $("strengthBox").classList.toggle(
@@ -92,38 +86,25 @@ $("password").addEventListener("input", () => {
     if (password.length >= 8) score++;
     if (password.length >= 12) score++;
 
-    if (/[a-z]/.test(password) &&
-        /[A-Z]/.test(password)) score++;
-
+    if (/[a-z]/.test(password) && /[A-Z]/.test(password)) score++;
     if (/[0-9]/.test(password)) score++;
-
     if (/[^A-Za-z0-9]/.test(password)) score++;
 
     const levels = [
-        "Very Weak",
-        "Weak",
-        "Fair",
-        "Good",
-        "Strong",
-        "Very Strong"
+        "Very Weak", "Weak", "Fair",
+        "Good", "Strong", "Very Strong"
     ];
 
     const colors = [
-        "#e25567",
-        "#e25567",
-        "#e8a34c",
-        "#e8c64c",
-        "#54c78a",
-        "#28d8a0"
+        "#e25567", "#e25567", "#e8a34c",
+        "#e8c64c", "#54c78a", "#28d8a0"
     ];
 
     $("strengthLabel").textContent =
         password.length ? levels[score] : "Too Short";
 
     $("strengthFill").style.width =
-        password.length
-            ? Math.max(8, score * 20) + "%"
-            : "0%";
+        password.length ? Math.max(8, score * 20) + "%" : "0%";
 
     $("strengthFill").style.background = colors[score];
 
@@ -139,14 +120,12 @@ $("password").addEventListener("input", () => {
 // =================================
 
 function updateAttempts() {
-
     $("attemptText").textContent =
         `Failed attempts: ${failedAttempts}/${MAX_ATTEMPTS}`;
 
     $("attemptMeter").style.width =
         (failedAttempts / MAX_ATTEMPTS * 100) + "%";
 }
-
 
 function remainingSeconds() {
     return Math.max(
@@ -155,19 +134,15 @@ function remainingSeconds() {
     );
 }
 
-
 function updateLockStatus() {
-
     const remaining = remainingSeconds();
 
     if (remaining > 0) {
-
         $("lockStatus").textContent = `Locked: ${remaining}s`;
         $("loginButton").disabled = true;
         $("loginButton").textContent = `Try Again in ${remaining}s`;
 
     } else if (lockedUntil > 0) {
-
         lockedUntil = 0;
         failedAttempts = 0;
 
@@ -194,11 +169,9 @@ function updateLockStatus() {
 // =================================
 
 $("loginForm").addEventListener("submit", event => {
-
     event.preventDefault();
 
     if (remainingSeconds() > 0) {
-
         updateLockStatus();
 
         showNotice(
@@ -206,7 +179,6 @@ $("loginForm").addEventListener("submit", event => {
             "Login is temporarily locked. Please wait.",
             "bad"
         );
-
         return;
     }
 
@@ -217,7 +189,6 @@ $("loginForm").addEventListener("submit", event => {
         username === LOGIN_USERNAME &&
         password === LOGIN_PASSWORD
     ) {
-
         showNotice(
             $("loginNotice"),
             "Login successful! Opening your website...",
@@ -228,12 +199,12 @@ $("loginForm").addEventListener("submit", event => {
         $("loginButton").disabled = true;
 
         setTimeout(() => {
+            if (SUCCESS_REDIRECT_URL.trim() !== "") {
+                // Open the real estate website in a new tab.
+                window.open(SUCCESS_REDIRECT_URL, "_blank");
 
-            if (
-                SUCCESS_REDIRECT_URL !== "https://example.com" &&
-                SUCCESS_REDIRECT_URL.trim() !== ""
-            ) {
-                window.location.href = SUCCESS_REDIRECT_URL;
+                $("loginButton").disabled = false;
+                $("loginButton").textContent = "Login Securely";
             } else {
                 $("loginButton").disabled = false;
 
@@ -243,16 +214,13 @@ $("loginForm").addEventListener("submit", event => {
                     "info"
                 );
             }
-
         }, 700);
 
     } else {
-
         failedAttempts++;
         updateAttempts();
 
         if (failedAttempts >= MAX_ATTEMPTS) {
-
             lockedUntil = Date.now() + LOCK_SECONDS * 1000;
 
             showNotice(
@@ -264,16 +232,12 @@ $("loginForm").addEventListener("submit", event => {
             if (lockTimer) clearInterval(lockTimer);
 
             lockTimer = setInterval(updateLockStatus, 250);
-
             updateLockStatus();
 
         } else {
-
             showNotice(
                 $("loginNotice"),
-                `Incorrect login details. ${
-                    MAX_ATTEMPTS - failedAttempts
-                } attempts remaining.`,
+                `Incorrect login details. ${MAX_ATTEMPTS - failedAttempts} attempts remaining.`,
                 "bad"
             );
         }
@@ -286,7 +250,6 @@ $("loginForm").addEventListener("submit", event => {
 // =================================
 
 $("enquiryForm").addEventListener("submit", event => {
-
     event.preventDefault();
 
     const name = $("enquiryName").value.trim();
@@ -310,7 +273,6 @@ $("enquiryForm").addEventListener("submit", event => {
     );
 
     const links = message.match(/https?:\/\/|www\./gi) || [];
-
     const repeatedCharacters = /(.)\1{7,}/i.test(message);
 
     const uppercaseCount =
@@ -322,36 +284,17 @@ $("enquiryForm").addEventListener("submit", event => {
 
     const signals = [];
 
-    if (matchedPhrases.length) {
-        signals.push("Spam phrases detected");
-    }
-
-    if (links.length >= 2) {
-        signals.push("Multiple links");
-    }
-
-    if (repeatedCharacters) {
-        signals.push("Repeated characters");
-    }
-
-    if (excessiveUppercase) {
-        signals.push("Excessive uppercase");
-    }
-
-    if (message.length < 12) {
-        signals.push("Very short message");
-    }
-
-    if (!name) {
-        signals.push("Name missing");
-    }
+    if (matchedPhrases.length) signals.push("Spam phrases detected");
+    if (links.length >= 2) signals.push("Multiple links");
+    if (repeatedCharacters) signals.push("Repeated characters");
+    if (excessiveUppercase) signals.push("Excessive uppercase");
+    if (message.length < 12) signals.push("Very short message");
+    if (!name) signals.push("Name missing");
 
     const validEmail =
         /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
-    if (email && !validEmail) {
-        signals.push("Invalid email format");
-    }
+    if (email && !validEmail) signals.push("Invalid email format");
 
     const isPotentialSpam =
         matchedPhrases.length > 0 ||
@@ -360,7 +303,6 @@ $("enquiryForm").addEventListener("submit", event => {
         excessiveUppercase;
 
     if (isPotentialSpam) {
-
         showNotice(
             $("enquiryNotice"),
             "Potential spam detected! " + signals.join(", "),
@@ -368,7 +310,6 @@ $("enquiryForm").addEventListener("submit", event => {
         );
 
     } else if (signals.length > 0) {
-
         showNotice(
             $("enquiryNotice"),
             "Please review: " + signals.join(", "),
@@ -376,7 +317,6 @@ $("enquiryForm").addEventListener("submit", event => {
         );
 
     } else {
-
         showNotice(
             $("enquiryNotice"),
             "No obvious spam signals found. Review before accepting.",
@@ -386,5 +326,8 @@ $("enquiryForm").addEventListener("submit", event => {
 });
 
 
-// Initial display
+// =================================
+// INITIAL DISPLAY
+// =================================
+
 updateAttempts();
