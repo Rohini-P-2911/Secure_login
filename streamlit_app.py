@@ -1,4 +1,4 @@
-
+```python
 import streamlit as st
 import streamlit.components.v1 as components
 from pathlib import Path
@@ -9,7 +9,6 @@ st.set_page_config(
     layout="wide"
 )
 
-# Read all website files
 base_path = Path(__file__).parent
 
 html_path = base_path / "index.html"
@@ -22,7 +21,6 @@ if html_path.exists() and css_path.exists() and js_path.exists():
     css_content = css_path.read_text(encoding="utf-8")
     js_content = js_path.read_text(encoding="utf-8")
 
-    # Add CSS and JavaScript directly into HTML
     html_content = html_content.replace(
         '<link rel="stylesheet" href="style.css">',
         f"<style>{css_content}</style>"
@@ -35,7 +33,7 @@ if html_path.exists() and css_path.exists() and js_path.exists():
 
     components.html(
         html_content,
-        height=1100,
+        height=1200,
         scrolling=True
     )
 
@@ -44,3 +42,4 @@ else:
         "Please check that index.html, style.css, "
         "and script.js are in the same repository folder."
     )
+```
