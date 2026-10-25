@@ -1,0 +1,338 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --card: #202b3a;
+    --input-bg: #101827;
+    --text: #f7f8fc;
+    --muted: #aeb9ca;
+    --purple: #625ff1;
+}
+
+body {
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    color: var(--text);
+    background:
+        radial-gradient(circle at 80% 20%, #302c72, transparent 35%),
+        linear-gradient(125deg, #151d37, #24265d);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 25px 15px;
+}
+
+.shell {
+    width: 100%;
+    max-width: 440px;
+    background: var(--card);
+    border: 1px solid #4a586c;
+    border-radius: 22px;
+    padding: 28px 30px;
+    box-shadow: 0 20px 60px #0005;
+}
+
+.brand {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.lock {
+    font-size: 42px;
+    margin-bottom: 12px;
+}
+
+h1 {
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    font-size: 13px;
+    color: #d6dceb;
+}
+
+label {
+    display: block;
+    font-size: 14px;
+    margin: 16px 0 8px;
+}
+
+input,
+textarea {
+    width: 100%;
+    padding: 13px 14px;
+    border: 1px solid #607087;
+    border-radius: 9px;
+    background: var(--input-bg);
+    color: var(--text);
+    font-size: 14px;
+    font-family: inherit;
+    outline: none;
+    transition: 0.3s;
+}
+
+input:focus,
+textarea:focus {
+    border-color: #8583ff;
+    box-shadow: 0 0 0 3px #625ff126;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: #7f8ca0;
+}
+
+.password-wrap {
+    position: relative;
+}
+
+.password-wrap input {
+    padding-right: 70px;
+}
+
+.show-btn {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    background: transparent;
+    color: #c5cafa;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.primary {
+    width: 100%;
+    padding: 13px;
+    margin-top: 20px;
+    border: none;
+    border-radius: 9px;
+    background: linear-gradient(100deg, #6865f7, #5d5cf0);
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.primary:hover {
+    background: #7774ff;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px #625ff144;
+}
+
+.primary:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+    transform: none;
+}
+
+.notice {
+    display: none;
+    margin-top: 13px;
+    padding: 11px;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 13px;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+.notice.show {
+    display: block;
+}
+
+.notice.ok {
+    background: #0e5135;
+    color: #e1fff0;
+}
+
+.notice.bad {
+    background: #6b2632;
+    color: #ffe7ea;
+}
+
+.notice.info {
+    background: #253e62;
+    color: #e2edff;
+}
+
+.strength {
+    display: none;
+    margin-top: 12px;
+}
+
+.strength.visible {
+    display: block;
+}
+
+.strength-top {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    margin-bottom: 7px;
+    color: #c9d3e3;
+}
+
+.track,
+.meter {
+    height: 6px;
+    background: #48576a;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.fill {
+    height: 100%;
+    width: 0;
+    background: #e25567;
+    border-radius: 10px;
+    transition: 0.3s;
+}
+
+.hint {
+    color: #9eacbf;
+    font-size: 11px;
+    margin-top: 7px;
+    line-height: 1.5;
+}
+
+.separator {
+    height: 1px;
+    background: #3a485b;
+    margin: 23px 0 19px;
+}
+
+.statusline {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    font-size: 12px;
+    color: #d9e0ec;
+}
+
+.attempts {
+    text-align: center;
+    font-size: 13px;
+    margin: 15px 0 10px;
+}
+
+.meter div {
+    height: 100%;
+    width: 0;
+    background: #ed6a7a;
+    transition: 0.3s;
+}
+
+.credentials {
+    margin-top: 16px;
+    padding: 14px 12px;
+    background: var(--input-bg);
+    border-radius: 9px;
+    color: #dbe5f7;
+    font-size: 12px;
+    line-height: 1.9;
+    overflow-wrap: anywhere;
+}
+
+.credentials strong {
+    color: white;
+}
+
+.tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 19px;
+    padding: 5px;
+    background: #121a29;
+    border-radius: 11px;
+}
+
+.tab {
+    flex: 1;
+    padding: 10px 6px;
+    border: none;
+    border-radius: 8px;
+    background: transparent;
+    color: #b7c3d5;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.tab.active {
+    background: #343d58;
+    color: white;
+}
+
+.view {
+    display: none;
+}
+
+.view.active {
+    display: block;
+}
+
+.small-title {
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+.small-copy {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-bottom: 12px;
+}
+
+.footer {
+    margin-top: 18px;
+    text-align: center;
+    color: #8492a8;
+    font-size: 11px;
+}
+
+@media (max-width: 480px) {
+    .shell {
+        padding: 23px 20px;
+        border-radius: 18px;
+    }
+
+    h1 {
+        font-size: 27px;
+    }
+
+    .lock {
+        font-size: 38px;
+    }
+}
+
+
+/* Real Estate Villa Background Image */
+body {
+    background:
+        linear-gradient(
+            rgba(10, 15, 25, 0.55),
+            rgba(10, 15, 25, 0.65)
+        ),
+        url("https://images.openai.com/static-rsc-4/1klQFgQn6njI3_WIUxurvbyMEDmro_DBqMb2qAAIqV7RqZ5zdMoETwTOS6lhSF1ptWzXN93PHzokKI32PKIvN4WL-vmnUQgHIX5w4GoSKljugIDlHivD-9z8ZGXJwabDaC0eRS_JC7v-Jua2asYcrKJi1osbuNT7hXsdTkq4xHD6ggX-3B_gZ429IQMK6dnV?purpose=fullsize");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+/* Hide the dark rectangle behind login content */
+.shell {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+}

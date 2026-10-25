@@ -1,0 +1,110 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Login</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+
+<main class="shell">
+
+    <header class="brand">
+        <div class="lock">🔐</div>
+        <h1>Secure Login</h1>
+        <p class="subtitle">Account Access & Security</p>
+    </header>
+
+    <nav class="tabs">
+        <button type="button" class="tab active" data-view="loginView">Login</button>
+        <button type="button" class="tab" data-view="enquiryView">Enquiry Check</button>
+    </nav>
+
+    <!-- Login Section -->
+    <section id="loginView" class="view active">
+
+        <form id="loginForm">
+            <label for="username">Username</label>
+            <input type="text" id="username" value="admin" required>
+
+            <label for="password">Password</label>
+            <div class="password-wrap">
+                <input type="password" id="password"
+                       placeholder="Enter password" required>
+                <button type="button" class="show-btn"
+                        id="togglePassword">SHOW</button>
+            </div>
+
+            <div class="strength" id="strengthBox">
+                <div class="strength-top">
+                    <span>Password Strength</span>
+                    <strong id="strengthLabel">Weak</strong>
+                </div>
+                <div class="track">
+                    <div class="fill" id="strengthFill"></div>
+                </div>
+                <p class="hint" id="strengthHint">
+                    Use uppercase, lowercase, numbers and symbols.
+                </p>
+            </div>
+
+            <button type="submit" class="primary" id="loginButton">
+                Login Securely
+            </button>
+
+            <div class="notice" id="loginNotice" role="status"></div>
+        </form>
+
+        <div class="separator"></div>
+
+        <div class="statusline">
+            <span>Login Protection</span>
+            <span id="lockStatus">Ready</span>
+        </div>
+
+        <p class="attempts" id="attemptText">Failed attempts: 0/5</p>
+
+        <div class="meter">
+            <div id="attemptMeter"></div>
+        </div>
+
+        <div class="credentials">
+            <strong>Login Credentials</strong><br>
+            Username: <span id="shownUsername">admin</span><br>
+            Password: <span id="shownPassword">Secure@123</span>
+        </div>
+    </section>
+
+    <!-- Spam Enquiry Section -->
+    <section id="enquiryView" class="view">
+
+        <h2 class="small-title">Spam Enquiry Detection</h2>
+        <p class="small-copy">
+            Check an enquiry for common spam signals.
+        </p>
+
+        <form id="enquiryForm">
+            <label for="enquiryName">Name</label>
+            <input type="text" id="enquiryName" placeholder="Enter your name">
+
+            <label for="enquiryEmail">Email</label>
+            <input type="email" id="enquiryEmail" placeholder="Enter your email">
+
+            <label for="enquiryMessage">Enquiry Message</label>
+            <textarea id="enquiryMessage" rows="4"
+                      placeholder="Write your enquiry..." required></textarea>
+
+            <button type="submit" class="primary">Check Enquiry</button>
+            <div class="notice" id="enquiryNotice" role="status"></div>
+        </form>
+    </section>
+
+    <footer class="footer">Frontend Security Interface</footer>
+
+</main>
+
+</body>
+</html>
